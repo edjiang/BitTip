@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BitTip - Give people Bitcoin tips in real life!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/bittip.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+    function showCoinbase() {
+      $('#coinbaseimport').fadeIn();
+    }
+
+    function showElectrum() {
+      $('#electrumimport').fadeIn();
+    }
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="index.htm">Home</a></li>
+          <li class="active"><a href="redeem.htm">Redeem</a></li>
+          <li><a href="https://github.com/edjiang/bittip/archive/master.zip">Download Offline</a></li>
+        </ul>
+        <h3 class="text-muted">BitTip</h3>
+      </div>
+
+      <div class="jumbotron">
+        <img src="img/logo.png" />
+        <p class="lead">Someone decided to give you a tip! Congrats!</p>
+        <p> If you're here, you must be curious what Bitcoin is! Here's a quick video that explains how Bitcoin works: </p>
+        <iframe width="560" height="315" src="http://www.youtube.com/embed/Um63OQz3bjo?rel=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="jumbotron">
+        <h2>Get a Bitcoin wallet</h2>
+        <p>To get started, you need to create a wallet. There are many options, but here's two of the easiest:</p>
+        <div class="row">
+          <div class="col-xs-6">
+            <img src="img/coinbase.png" height="50px"/>
+            <p>An online wallet. Easiest to use, but you have to trust Coinbase with your Bitcoin.</p>
+            <a href="https://coinbase.com/?r=528dbe16da6460a7c10003d4&amp;utm_campaign=user-referral&amp;src=referral-link" class="btn btn-primary" target="_blank" onclick="showCoinbase()">Get Started</a>
+          </div>
+          <div class="col-xs-6">
+            <img src="img/electrum.png" height="40px"/>
+            <p>A bitcoin client. You're independent, but need to secure your computer.</p>
+            <a href="http://electrum.org/" class="btn btn-primary" target="_blank" onclick="showElectrum()">Get Started</a>
+          </div>
+        </div>
+        <div class="instructions" id="coinbaseimport">
+          <h2>Importing Bitcoins in Coinbase</h2>
+          <p>After creating your Coinbase account, go to Account Settings > Integrations, and import a paper wallet. Take a picture of the QR code on your tip sheet, or type it in manually. </p>
+        </div>
+        <div class="instructions" id="electrumimport">
+          <h2>Importing Bitcoins in Electrum</h2>
+          <p>After setting up Electrum, go to Wallet > Private Keys > Import, and type in the private key on your tip sheet. </p>
+        </div>
+      </div>
+
+      <div class="jumbotron">
+
+        <h2>Use your Bitcoins!</h2>
+        <div class="row">
+          <div class="col-xs-6">
+            <img src="img/reddit.png" height="50px"/>
+            <p>Reddit is a fun social news site.</p>
+            <a href="https://ssl.reddit.com/gold" class="btn btn-primary btn-sm">Buy Reddit Gold!</a>
+          </div>
+          <div class="col-xs-6">
+            <img src="img/humblebundle.png" height="50px"/>
+            <p>Humble Bundle sells fun indie videogames. </p>
+            <a href="https://www.humblebundle.com/" class="btn btn-primary btn-sm">Buy Games!</a>
+          </div>
+        </div>
+        <div class="row" style="margin-top:50px;">
+          <div class="col-xs-6">
+            <img src="img/eff.png" height="50px"/>
+            <p>The EFF protects internet rights for everyone! </p>
+            <a href="https://www.eff.org/donate" class="btn btn-primary btn-sm">Donate!</a>
+          </div>
+          <div class="col-xs-6">
+            <img src="img/weusecoins.png" height="50px"/>
+            <p>Not done learning? Learn more at WeUseCoins.</p>
+            <a href="https://www.weusecoins.com/" class="btn btn-primary btn-sm">Keep Learning!</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/edwardstarcraft">Edward Jiang</a>. Use at your own risk. <a href="http://github.com/edjiang/BitTip">Fork on GitHub</a></p>
+        <p>You can tip me at 19VxzHGyw3L1CUJpgT7d8EFqnmJYVZv5QS</p>
+      </div>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

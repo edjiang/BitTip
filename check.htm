@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BitTip - Give people Bitcoin tips in real life!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/bittip.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    var displayBalances = function (data) {
+      addresses = data.addresses;
+      var table = '<table class="table"><thead><tr><th>Address</th><th>Balance</th></tr></thead>';
+      table += '<tbody>';
+
+      for(var i=0; i<addresses.length; i++) {
+        table += '<tr><td>' + addresses[i].address + '</td><td>' + addresses[i].final_balance/100000 + ' mBTC</td></tr>'
+      }
+
+      table += '</tbody></table>';
+      $('.jumbotron').after(table);
+    }
+
+    $(function() {
+      $.getJSON('https://blockchain.info/multiaddr?active=' + getUrlVars().q + '&cors=true', displayBalances);
+    });
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="index.htm">Home</a></li>
+          <li><a href="redeem.htm">Redeem</a></li>
+          <li><a href="https://github.com/edjiang/bittip/archive/master.zip">Download Offline</a></li>
+        </ul>
+        <h3 class="text-muted">BitTip</h3>
+      </div>
+
+      <div class="jumbotron form">
+        <img src="img/logo.png" />
+        <p class="lead">Give people Bitcoin tips in real life. </p>
+      </div>
+
+      <div class="tips">
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/edwardstarcraft/">Edward Jiang</a>. Use at your own risk. <a href="http://github.com/edjiang/BitTip">Fork on GitHub</a></p>
+        <p>You can tip me at 19VxzHGyw3L1CUJpgT7d8EFqnmJYVZv5QS</p>
+      </div>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

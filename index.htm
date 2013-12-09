@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BitTip - Give people Bitcoin tips in real life!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/bittip.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/bitcoinjs-min.js"></script>
+    <script type="text/javascript" src="js/qrcode.js"></script>
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+      var Bittip = {
+        amount: 0,
+        wallets: [],
+        generate: function(qty, amount) {
+          this.amount = amount;
+          for(var i = 0; i<qty; i++) {
+            var key = new Bitcoin.ECKey(false);
+            this.wallets[i] = {public: key.getBitcoinAddress().toString(), private: key.getExportedPrivateKey()};
+          }
+          this.displayWallets();
+        },
+        displayWallets: function(){
+          this.generateTips();
+          this.generateTable();
+          this.generateCSV();
+          this.generateCheckURL();
+
+          $('.form').fadeOut(400,function() {$('.instructions').slideDown()});
+        },
+        generateTips: function() {
+          for(var i=0; i<this.wallets.length; i++) {
+            var html = '<hr/><div class="tip row"><div class="col-xs-3"><img src="img/bitcoin.png" class="btclogo" /></div>';
+            html += '<div class="col-xs-6"><h2>Here\'s ' + this.amount + ' mBTC!</h2><p><strong>What are Bitcoins?</strong></p><p>They\'re the new online currency that\'s revolutionizing the world!</p><p>See how to use and redeem your bitcoins at <strong>http://redeem.bittip.co/</strong></p><p>Private key: ' + this.wallets[i].private + '</p></div>';
+            html += '<div class="col-xs-3" id="qr-' + i + '"></div></div>';
+
+            $('.tips').append(html);
+
+            new QRCode("qr-" + i, {
+              text: this.wallets[i].private,
+              width: 128,
+              height: 128
+            });
+          }
+        },
+        generateCSV: function() {
+          var csv = '';
+          for(var i=0; i<this.wallets.length; i++) {
+            csv += this.wallets[i].public + ', ' + this.amount/1000 + '\n';
+          }
+          $('.csv').html(csv);
+        },
+        generateTable: function() {
+          var table = '<table class="table data"><thead><tr><th>Address</th><th>Wallet Import Key</th></tr></thead>';
+          table += '<tbody>';
+
+          for(var i=0; i<this.wallets.length; i++) {
+            table += '<tr><td>' + this.wallets[i].public + '</td><td>' + this.wallets[i].private + '</td></tr>';
+          }
+
+          table += '</tbody></table>';
+          $('.instructions').after(table);
+        },
+        generateCheckURL: function() {
+          var url = 'http://bittip.co/check.htm?q=';
+          for(var i=0; i<this.wallets.length; i++) {
+            url += this.wallets[i].public + '|';
+          }
+          $('.checkurl').val(url);
+        }
+      };
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="index.htm">Home</a></li>
+          <li><a href="redeem.htm">Redeem</a></li>
+          <li><a href="https://github.com/edjiang/bittip/archive/master.zip">Download Offline</a></li>
+        </ul>
+        <h3 class="text-muted">BitTip</h3>
+      </div>
+
+      <div class="jumbotron form">
+        <img src="img/logo.png" />
+        <p class="lead">Give people Bitcoin tips in real life. </p>
+        <form role="form">
+          <div class="form-group"><input type="text" id="tip-qty" size="3" value=5 /> How many tips to generate? </div>
+          <div class="form-group"><input type="text" id="tip-amount" size="3" value=5 /> Tip amount (in mBTC) </div>
+          <p><a class="btn btn-lg btn-success" href="#" role="button" onclick="Bittip.generate($('#tip-qty').val(), $('#tip-amount').val())">Generate Tips</a></p>
+        </form>
+      </div>
+
+      <div class="jumbotron instructions">
+        <h2>Next Steps: </h2>
+        <p>1. Load each wallet. </p>
+        <p>You'll have to do this manually. In some clients (like Electrum), you can use this CSV data. <a href="javascript:$('.csv').fadeIn()">Show CSV</a> </p>
+        <textarea class='col-xs-12 csv' onclick="this.focus();this.select()" readonly="readonly">address,id
+          address,id</textarea>
+        <p>2. Save your private keys in a secure location</p>
+        <p>3. <a href="javascript:window.print()">Print</a> this page!</p>
+        <p>4. Check if people redeem your tips!</p>
+        <input type="text" class="checkurl" onclick="this.focus();this.select()" readonly="readonly" />
+      </div>
+
+      <div class="tips">
+
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/edwardstarcraft/">Edward Jiang</a>. Use at your own risk. <a href="http://github.com/edjiang/BitTip">Fork on GitHub</a></p>
+        <p>You can tip me at 19VxzHGyw3L1CUJpgT7d8EFqnmJYVZv5QS</p>
+      </div>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
